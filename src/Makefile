@@ -18,6 +18,8 @@ include Common.mk
 
 #debug: $(CFLAGS)
 
+PREPS = $(SRC_C:.c=.i)
+
 all:
 	$(MAKE) $(BINARY_NAME)
 	# further make targets: help, libs, build_all, strip[_libs|_all], install[_libs|_all], clean[_libs|_all]
@@ -25,9 +27,13 @@ all:
 libs:	all
 	$(MAKE)  -C lib all CORE_CFLAGS='$(CFLAGS)'
 
+prep:	$(PREPS)
 
 $(BINARY_NAME):	$(OBJS) Makefile Common.mk
 	$(CC)  $(OBJS) -o $@  $(LDFLAGS) $(EXTRA_LDFLAGS)
+
+%.i:	%.c
+	$(CC) -E $< -o $@
 
 %.o:	%.c %.h Makefile Common.mk $(SRC_H)
 	$(CC) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@

@@ -1,5 +1,5 @@
 
-CFLAGS +=	$(CORE_CFLAGS) -fpic -I../../
+CFLAGS +=	$(CORE_CFLAGS) -fpic -I../../ -g -DDEBUG_MALLOC -DAVL_5XLINKED
 LDFLAGS +=	-shared
 #-Wl,-soname,bmxd_config 
 
